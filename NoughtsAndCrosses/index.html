@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Noughts and Crosses</title>
+    <link href="bootstrap/bootstrap.css" rel="stylesheet">
+    <style type="text/css" media="screen">
+        /*Shows grid lines to separate rows and columns, but none around the edge*/
+        table { border-collapse: collapse; }
+        table td, table th { border: 3px solid black; }
+        table tr:first-child td { border-top: 0; }
+        table tr:last-child td { border-bottom: 0; }
+        table tr td:first-child { border-left: 0; }
+        table tr td:last-child { border-right: 0; }
+    </style>
+</head>
+<body ng-controller="gameController">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!--Bootstrap handles responsive displays for different sized devices-->
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <!--Angular allows data binding for more efficient code-->
+    <script src="scripts/angular.min.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/main.js"></script>
+    <div class="container-fluid" style="padding: 10px" align="center">
+        <div class="row">
+            <div class="col-sm-12">
+                <!--Creates a table which uses data binding to reflect the values in the grid in the JavaScript code-->
+                <!--When a user clicks a square, it calls 'squareClicked' and passes in which square was clicked-->
+                <table>
+                    <tr ng-repeat="row in grid track by $index">
+                        <td ng-repeat="piece in row track by $index">
+                            <img ng-src="pics/{{piece}}.png" ng-click="squareClicked($parent.$index, $index)" style="width: 100%" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br />
+        <div class="row" ng-show="gameStatus!=''">
+            <div class="col-sm-3"></div>
+            <!--Text to show the game status, shown when the game is over-->
+            <div class="col-sm-3"> <p style="font-size: large; text-align: center">{{gameStatus}}</p> </div>
+            <!--Button to start a new game, shown when the game is over-->
+            <div class="col-sm-3" align="center"> <button ng-click="newGame()" style="width: 120px; height: 35px; font-size: large">New Game</button> </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </div>
+
+</body>
+</html>
